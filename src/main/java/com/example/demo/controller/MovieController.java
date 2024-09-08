@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.MovieDetail;
-import com.example.demo.repository.MovieDetailRepository;
+import com.example.demo.model.Movie;
+import com.example.demo.producer.MovieProducer;
+import com.example.demo.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,26 +12,28 @@ import java.util.List;
 public class MovieController {
 
     @Autowired
-    private MovieDetailRepository movieDetailsRepository;
+    private MovieRepository moviesRepository;
+
+    @Autowired
+    private MovieProducer movieProducer;
 
     @PostMapping("/movies")
-    public MovieDetail addMovieDetails(@RequestBody MovieDetail movieDetail) {
-        MovieDetail updatedMovieDetail = movieDetailsRepository.createMovieDetail(movieDetail);
-        return updatedMovieDetail;
+    public void addMovies(@RequestBody Movie movie) {
+        movieProducer.send(movie);
     }
 
     @GetMapping("/movies")
-    public List<MovieDetail> getAllMovieDetails() {
-        return (List<MovieDetail>) movieDetailsRepository.getMovieDetailList();
+    public List<Movie> getAllMovies() {
+        return (List<Movie>) moviesRepository.getMovieList();
     }
 
-    @GetMapping("/movies/{id}")
-    public MovieDetail getOneMovie(@PathVariable("id") String id) {
-        return movieDetailsRepository.getMovieDetailById(id);
+    @GetMapping("/movies/{title}/{year}")
+    public Movie getOneMovie(@PathVariable("title") String title, @PathVariable("year") Integer year) {
+        return moviesRepository.getMovieById(title,year);
     }
 
-    @DeleteMapping("/movies/{id}")
-    public void deleteOneMovie(@PathVariable("id") String id) {
-        movieDetailsRepository.deleteMovieDetail(id);
+    @DeleteMapping("/movies/{title}/{year}")
+    public void deleteOneMovie(@PathVariable("title") String title, @PathVariable("year") Integer year) {
+        moviesRepository.deleteMovie(title,year);
     }
 }

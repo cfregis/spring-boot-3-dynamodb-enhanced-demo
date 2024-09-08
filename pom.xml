@@ -45,15 +45,46 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>dynamodb-enhanced</artifactId>
+			<version>2.20.87</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-dynamodb -->
 		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk-dynamodb</artifactId>
-			<version>1.12.770</version>
+			<groupId>io.awspring.cloud</groupId>
+			<artifactId>spring-cloud-aws-starter</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>io.awspring.cloud</groupId>
+			<artifactId>spring-cloud-aws-starter-sqs</artifactId>
+		</dependency>
 	</dependencies>
-
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>software.amazon.awssdk</groupId>
+				<artifactId>bom</artifactId>
+				<version>2.27.19</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+<!--			<dependency>-->
+<!--				<groupId>io.awspring.cloud</groupId>-->
+<!--				<artifactId>spring-cloud-aws</artifactId>-->
+<!--				<version>3.0.4</version>-->
+<!--				<type>pom</type>-->
+<!--				<scope>import</scope>-->
+<!--			</dependency>-->
+			<dependency>
+				<groupId>io.awspring.cloud</groupId>
+				<artifactId>spring-cloud-aws-dependencies</artifactId>
+				<version>3.0.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<build>
 		<plugins>
 			<plugin>
